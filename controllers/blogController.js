@@ -74,7 +74,7 @@ class BlogController {
     }
   }
 
-  async getBlogsByUserId(req, res) {
+  async getBlogById(req, res) {
     try {
       const { id = 0 } =  req.params
 

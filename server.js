@@ -13,6 +13,7 @@ const authRouter = require('./routers/authRouter')
 const userRouter = require('./routers/userRouter')
 const blogRouter = require('./routers/blogRouter')
 const contentRouter = require('./routers/contentRouter')
+const memberRouter = require('./routers/memberRouter')
 
 const app = express()
 
@@ -37,6 +38,7 @@ app.use('/auth', authRouter)
 app.use('/user', userRouter)
 app.use('/blog', blogRouter)
 app.use('/content', contentRouter)
+app.use('/member', memberRouter)
 
 const PORT = process.env.PORT || 5000
 

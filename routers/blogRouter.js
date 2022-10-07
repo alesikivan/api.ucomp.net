@@ -9,7 +9,7 @@ const router = new Router()
 
 router.get('/get', controller.getBlogs)
 
-router.get('/get/:id', controller.getBlogsByUserId)
+router.get('/get/:id', controller.getBlogById)
 
 router.post('/create', authMiddleware, [
   check('title', 'Title of blog can not be empty').notEmpty().custom((value) => !!value.trim()),
