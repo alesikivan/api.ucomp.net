@@ -84,7 +84,22 @@ class BlogController {
         return res.status(400).json({ message: `Can not find the blog` })
       }
 
-      return res.json(blog)
+      let next = await Blog
+        .findOne({ 
+          _id: { $gt: mongoose.Types.ObjectId(blog.id)}
+        })
+        .limit(1)
+
+      let previos = await Blog
+        .findOne({ 
+          _id: { $lt: mongoose.Types.ObjectId(blog.id)}
+        })
+        .limit(1)
+
+      next = next ? next._id : null
+      previos = previos ? previos._id : null
+
+      return res.json({ blog, next, previos })
     } catch (error) {
       console.log(error)
     }
@@ -231,7 +246,7 @@ class BlogController {
   
       await Blog.deleteOne({ _id: String(id) })
 
-      deleteImage(blogImage)
+      if (blog.image != '') deleteImage(blogImage)
   
       return res.status(200).json({ message: `Blog successfully deleted` }) 
     } catch (error) {

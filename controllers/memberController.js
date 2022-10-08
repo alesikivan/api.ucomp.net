@@ -211,7 +211,7 @@ class MemberController {
   
       await Member.deleteOne({ _id: String(id) })
 
-      deleteImage(memberImage)
+      if (member.image != '') deleteImage(memberImage)
   
       return res.status(200).json({ message: `Member successfully deleted` }) 
     } catch (error) {

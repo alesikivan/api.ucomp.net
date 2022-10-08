@@ -1,6 +1,6 @@
 require('dotenv').config()
 require('./utils/auth/passport')
-require('./utils/auth/google')
+// require('./utils/auth/google')
 
 const express = require('express')
 const mongoose = require('mongoose')
@@ -14,6 +14,9 @@ const userRouter = require('./routers/userRouter')
 const blogRouter = require('./routers/blogRouter')
 const contentRouter = require('./routers/contentRouter')
 const memberRouter = require('./routers/memberRouter')
+const publicationRouter = require('./routers/publicationRouter')
+const collaborationRouter = require('./routers/collaborationRouter')
+const feedbackRouter = require('./routers/feedbackRouter')
 
 const app = express()
 
@@ -24,13 +27,13 @@ app.use(express.json())
 app.use(cors())
 app.use(passport.initialize())
 
-app.use(
-  session({
-    secret: process.env.GOOGLE_CLIENT_SECRET,
-    resave: false,
-    saveUninitialized: true,
-  })
-)
+// app.use(
+//   session({
+//     secret: process.env.GOOGLE_CLIENT_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//   })
+// )
 
 app.get('/', (req, res) => res.send('API works!'))
 
@@ -39,6 +42,9 @@ app.use('/user', userRouter)
 app.use('/blog', blogRouter)
 app.use('/content', contentRouter)
 app.use('/member', memberRouter)
+app.use('/publication', publicationRouter)
+app.use('/collaboration', collaborationRouter)
+app.use('/feedback', feedbackRouter)
 
 const PORT = process.env.PORT || 5000
 
