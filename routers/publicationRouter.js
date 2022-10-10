@@ -8,7 +8,9 @@ const authMiddleware = require('../middlewares/auth')
 const router = new Router()
 
 const validation = [
-  check('title', 'Title of publication can not be empty').notEmpty().custom((value) => !!value.trim())
+  check('title', 'Title of publication can not be empty').notEmpty().custom((value) => !!value.trim()),
+  check('year', 'Year of publication can not be empty').notEmpty(),
+  check('year', 'Year should be a number').isNumeric()
 ]
 
 router.get('/get', controller.getPublications)

@@ -17,7 +17,7 @@ router.get('/get', controller.getFeedbacks)
 
 router.get('/get/:id', controller.getFeedbackById)
 
-router.post('/create', authMiddleware, validation, controller.feedbackCreate)
+router.post('/create', validation, controller.feedbackCreate)
 
 router.put('/update', authMiddleware, validation, controller.updateFeedback)
 

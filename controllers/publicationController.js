@@ -6,6 +6,7 @@ const Publication = require('../models/Publication')
 const publicationFields = {
   title: 1,
   link: 1,
+  year: 1,
   authors: 1,
   dateCreate: 1,
 }
@@ -22,12 +23,14 @@ class PublicationController {
       const { 
         title = '', 
         link = '',
+        year = 2000,
         authors = [],
       } = req.body
 
       const publication = new Publication({ 
         title, 
         link,
+        year,
         authors
       })
 
@@ -120,6 +123,7 @@ class PublicationController {
       const { 
         id = '',
         title = '',
+        year = 2000,
         link = '',
         authors = [],
       } = req.body
@@ -136,6 +140,7 @@ class PublicationController {
       const updSet = { 
         title, 
         link, 
+        year, 
         authors,
         dateUpdate: new Date()
       }

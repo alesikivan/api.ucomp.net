@@ -7,7 +7,8 @@ const { createImage, deleteImage } = require('../utils/images')
 
 const memberFields = {
   name: 1,
-  postions: 1,
+  positions: 1,
+  description: 1,
   dateCreate: 1,
   image: 1
 }
@@ -23,13 +24,13 @@ class MemberController {
 
       const { 
         name = '', 
-        postions = [],
+        positions = [],
         image = '', // base64
       } = req.body
 
       const member = new Member({ 
         name, 
-        postions,
+        positions,
       })
 
       // Check image exist
@@ -58,7 +59,7 @@ class MemberController {
 
       const members = await Member
         .find({}, memberFields)
-        .sort({ 'dateCreate': -1 }) 
+        .sort({ 'dateCreate': 1 }) 
         .skip(skip)
         .limit(limit)
 
@@ -132,7 +133,7 @@ class MemberController {
       const { 
         id = '',
         name = '',
-        postions = [],
+        positions = [],
         description = '',
         image, // base64
         isDeleteImage = false
@@ -149,7 +150,7 @@ class MemberController {
   
       const updSet = { 
         name, 
-        postions, 
+        positions, 
         description, 
         dateUpdate: new Date()
       }
