@@ -88,12 +88,14 @@ class BlogController {
         .findOne({ 
           _id: { $gt: mongoose.Types.ObjectId(blog.id)}
         })
+        .sort({ _id: 1 })
         .limit(1)
 
       let previos = await Blog
         .findOne({ 
           _id: { $lt: mongoose.Types.ObjectId(blog.id)}
         })
+        .sort({ _id: -1 })
         .limit(1)
 
       next = next ? next._id : null
