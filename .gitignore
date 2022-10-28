@@ -1,5 +1,7 @@
 node_modules
 
+content
+
 .DS_Store
 
 .env

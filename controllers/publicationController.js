@@ -49,7 +49,7 @@ class PublicationController {
 
       const publications = await Publication
         .find({}, publicationFields)
-        .sort({ 'dateCreate': -1 }) 
+        .sort({ 'year': -1 }) 
         .skip(skip)
         .limit(limit)
 
@@ -86,7 +86,7 @@ class PublicationController {
       if (!title) {
         const publications = await Publication
           .find({})
-          .sort({ 'dateCreate': -1 }) 
+          .sort({ 'year': -1 }) 
           .skip(skip) 
           .limit(limit)
         
@@ -101,7 +101,7 @@ class PublicationController {
         .find({ 
           title: { $regex: new RegExp(title, 'i') } 
         })
-        .sort({ 'dateCreate': -1 }) 
+        .sort({ 'year': -1 }) 
         .skip(skip) 
         .limit(limit)
 
