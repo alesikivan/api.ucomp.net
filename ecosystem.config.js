@@ -13,7 +13,7 @@ module.exports = {
       host : ['45.93.136.98'],
       ref  : 'origin/main',
       repo : 'https://github.com/alesikivan/api.ucomp.net',
-      path : '/root/apps/bookmark-core',
+      path : '/root/apps/ucomp-api',
       'pre-deploy-local': '',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
