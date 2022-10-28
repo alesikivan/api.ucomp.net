@@ -160,7 +160,8 @@ class BlogController {
         title = '',
         content = '',
         image, // base64
-        isDeleteImage = false
+        isDeleteImage = false,
+        isModifiedImage = false
       } = req.body
 
       // Validate the ID format
@@ -182,30 +183,33 @@ class BlogController {
         dateUpdate: new Date()
       }
 
-      if (isDeleteImage) {
-        // Delete previos image
-        const blogImage = blog.image.split('/').slice(-1)[0]
-        deleteImage(blogImage)
-
-        updSet.image = ''
-      }
-
-      if (image && isDeleteImage === false) {
-        if (blog.image) {
+      if (isModifiedImage) {
+        // Image has been removed
+        if (isDeleteImage) {
           // Delete previos image
           const blogImage = blog.image.split('/').slice(-1)[0]
           deleteImage(blogImage)
+
+          updSet.image = ''
         }
 
-        // Create a new image
-        const imageName = createImage(blog.id, image)
+        // Loaded new image
+        if (image && isDeleteImage === false) {
+          if (blog.image) {
+            // Delete previos image
+            const blogImage = blog.image.split('/').slice(-1)[0]
+            deleteImage(blogImage)
+          }
 
-        if (imageName === 'invalid') 
-          return res.status(400).json({ message: 'Invalid format. Please use png or jpeg format.' })
+          // Create a new image
+          const imageName = createImage(blog.id, image)
 
-        updSet.image = `${process.env.SERVER_URL}/content/images/${imageName}`
+          if (imageName === 'invalid') 
+            return res.status(400).json({ message: 'Invalid format. Please use png or jpeg format.' })
+
+          updSet.image = `${process.env.SERVER_URL}/content/images/${imageName}`
+        }
       }
-
 
       const updBlog = await Blog.findOneAndUpdate(
         { 

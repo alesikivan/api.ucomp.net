@@ -26,10 +26,12 @@ class MemberController {
         name = '', 
         positions = [],
         image = '', // base64
+        description = ''
       } = req.body
 
       const member = new Member({ 
         name, 
+        description,
         positions,
       })
 
@@ -136,7 +138,8 @@ class MemberController {
         positions = [],
         description = '',
         image, // base64
-        isDeleteImage = false
+        isDeleteImage = false,
+        isModifiedImage = false
       } = req.body
 
       // Validate the ID format
@@ -155,30 +158,31 @@ class MemberController {
         dateUpdate: new Date()
       }
 
-      if (isDeleteImage) {
-        // Delete previos image
-        const memberImage = member.image.split('/').slice(-1)[0]
-        deleteImage(memberImage)
-
-        updSet.image = ''
-      }
-
-      if (image && isDeleteImage === false) {
-        if (member.image) {
+      if (isModifiedImage) {
+        if (isDeleteImage) {
           // Delete previos image
           const memberImage = member.image.split('/').slice(-1)[0]
           deleteImage(memberImage)
+  
+          updSet.image = ''
         }
-
-        // Create a new image
-        const imageName = createImage(member.id, image)
-
-        if (imageName === 'invalid') 
-          return res.status(400).json({ message: 'Invalid format. Please use png or jpeg format.' })
-
-        updSet.image = `${process.env.SERVER_URL}/content/images/${imageName}`
+  
+        if (image && isDeleteImage === false) {
+          if (member.image) {
+            // Delete previos image
+            const memberImage = member.image.split('/').slice(-1)[0]
+            deleteImage(memberImage)
+          }
+  
+          // Create a new image
+          const imageName = createImage(member.id, image)
+  
+          if (imageName === 'invalid') 
+            return res.status(400).json({ message: 'Invalid format. Please use png or jpeg format.' })
+  
+          updSet.image = `${process.env.SERVER_URL}/content/images/${imageName}`
+        }
       }
-
 
       const updMember = await Member.findOneAndUpdate(
         { _id: id },
