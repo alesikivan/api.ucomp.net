@@ -15,7 +15,7 @@ module.exports = {
       repo : 'https://github.com/alesikivan/api.ucomp.net',
       path : '/root/apps/ucomp-api',
       'pre-deploy-local': '',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
+      'post-deploy' : 'npm install && pm2 delete ucomp.server && pm2 start ucomp.server.js --name ucomp.server && pm2 save --force',
       'pre-setup': ''
     }
   }

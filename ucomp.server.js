@@ -17,6 +17,7 @@ const memberRouter = require('./routers/memberRouter')
 const publicationRouter = require('./routers/publicationRouter')
 const collaborationRouter = require('./routers/collaborationRouter')
 const feedbackRouter = require('./routers/feedbackRouter')
+const projectRouter = require('./routers/projectRouter')
 
 const app = express()
 
@@ -45,6 +46,7 @@ app.use('/member', memberRouter)
 app.use('/publication', publicationRouter)
 app.use('/collaboration', collaborationRouter)
 app.use('/feedback', feedbackRouter)
+app.use('/project', projectRouter)
 
 const PORT = process.env.PORT || 5000
 

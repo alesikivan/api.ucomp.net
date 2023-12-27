@@ -23,9 +23,11 @@ class PublicationController {
       const { 
         title = '', 
         link = '',
-        year = 2000,
+        year = new Date().getFullYear(),
         authors = [],
       } = req.body
+
+      console.log(year)
 
       const publication = new Publication({ 
         title, 
