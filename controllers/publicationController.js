@@ -6,10 +6,15 @@ const Publication = require('../models/Publication')
 const publicationFields = {
   title: 1,
   link: 1,
+  journal: 1,
   year: 1,
   authors: 1,
   dateCreate: 1,
-}
+};
+
+// (async function(){
+//   await Publication.updateMany({}, { $set: { journal: '' } });
+// })();
 
 class PublicationController {
   async publicationCreate(req, res) {
@@ -23,17 +28,17 @@ class PublicationController {
       const { 
         title = '', 
         link = '',
+        journal = '',
         year = new Date().getFullYear(),
-        authors = [],
+        authors = []
       } = req.body
-
-      console.log(year)
 
       const publication = new Publication({ 
         title, 
         link,
         year,
-        authors
+        authors,
+        journal
       })
 
       await publication.save()
@@ -127,7 +132,8 @@ class PublicationController {
         title = '',
         year = 2000,
         link = '',
-        authors = [],
+        journal = '',
+        authors = []
       } = req.body
 
       // Validate the ID format
@@ -144,7 +150,8 @@ class PublicationController {
         link, 
         year, 
         authors,
-        dateUpdate: new Date()
+        journal,
+        dateUpdate: new Date(),
       }
 
       const updPublication = await Publication.findOneAndUpdate(

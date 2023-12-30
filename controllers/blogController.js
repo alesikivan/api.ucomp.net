@@ -26,12 +26,14 @@ class BlogController {
       const { 
         title = '', 
         content = '',
-        image = '', // base64
+        image = '', // base64,
+        dateCreate
       } = req.body
 
       const blog = new Blog({ 
         title, 
         content,
+        dateCreate: new Date(dateCreate),
         author: user.id
       })
 
@@ -160,6 +162,7 @@ class BlogController {
         title = '',
         content = '',
         image, // base64
+        dateCreate,
         isDeleteImage = false,
         isModifiedImage = false
       } = req.body
@@ -180,6 +183,7 @@ class BlogController {
       const updSet = { 
         title, 
         content, 
+        dateCreate: new Date(dateCreate),
         dateUpdate: new Date()
       }
 
